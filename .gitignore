@@ -3,9 +3,6 @@ node_modules
 /dist
 package-lock.json
 
-# API secrets
-src/data/APIcreds.js
-
 # Dev notes
 notes.txt
 
