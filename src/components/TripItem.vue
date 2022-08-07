@@ -5,7 +5,7 @@
 </template>
 <script>
 export default {
-  name: 'TripsList',
+  name: 'TripItem',
   data() {
     return {}
   },
