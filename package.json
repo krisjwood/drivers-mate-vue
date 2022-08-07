@@ -9,11 +9,14 @@
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
+    "@popperjs/core": "^2.11.5",
     "autoprefixer": "^10.4.5",
     "axios": "^0.27.2",
     "bootstrap": "^4.5.3",
     "bootstrap-vue": "^2.22.0",
     "core-js": "^3.8.3",
+    "popper.js": "^1.16.0",
+    "portal-vue": "^2.1.7",
     "vue": "^2.6.14",
     "vue-router": "^3.5.1"
   },
@@ -32,8 +35,5 @@
     "eslint-plugin-vue": "^8.0.3",
     "jest": "^27.0.5",
     "vue-template-compiler": "^2.6.14"
-  },
-  "overrides": {
-    "autoprefixer": "10.4.5"
   }
 }
