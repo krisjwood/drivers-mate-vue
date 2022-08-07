@@ -13,6 +13,13 @@
     bottom: 0;
     width: 100%;
     color: black;
+    background-color: white;
     text-align: center;
+    padding: 10px 0px;
+  }
+
+  body {
+    height: 100vh;
+    padding: 1rem;
   }
 </style>
