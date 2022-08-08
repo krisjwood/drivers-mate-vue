@@ -15,6 +15,7 @@
     "bootstrap": "^4.5.3",
     "bootstrap-vue": "^2.22.0",
     "core-js": "^3.8.3",
+    "dayjs": "^1.11.4",
     "popper.js": "^1.16.0",
     "portal-vue": "^2.1.7",
     "vue": "^2.6.14",

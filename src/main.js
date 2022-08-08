@@ -4,7 +4,6 @@ import router from './router'
 import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
 import PortalVue from 'portal-vue'
 
-
 Vue.config.productionTip = false
 
 Vue.use(PortalVue)

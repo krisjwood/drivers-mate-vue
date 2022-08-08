@@ -1,8 +1,8 @@
 <template>
-  <div class="container landing-fade-in">
-      <div class="d-flex justify-content-center align-items-center mt-5">
-        <img class="h-auto w-75" src="../assets/drivers-mate-nl-logo.png" alt="Netlogix Driver's Mate Logo">
-      </div>
+  <div>
+    <div class="d-flex justify-content-center align-items-center mt-5">
+      <img class="h-auto w-75" src="../assets/drivers-mate-nl-logo.png" alt="Netlogix Driver's Mate Logo">
+    </div>
     <div v-if="is.loadingDriverData">
       <div class="d-flex justify-content-center mb-1">
         <b-spinner label="Loading drivers..."></b-spinner>
@@ -27,7 +27,7 @@
         </b-form-select>
       </div>
       <div class="d-flex justify-content-center">
-        <b-button :disabled="!selected.driver" @click="goToTripsList()" class="m-2" variant="success">View Trips</b-button>
+        <b-button squared :disabled="!selected.driver" @click="goToTripsList()" class="m-2">View Trips</b-button>
       </div>
     </div>
   </div>
