@@ -12,9 +12,9 @@
           <!-- <b-button @click="filterByProperty('')">
             <i class="fa-solid fa-filter m-2 pt-1"></i>
           </b-button> -->
-          <b-button squared size="sm" @click="sortListByStatus()">
-            <i class="fa-solid fa-sort mx-2"></i>
-            Sort by Status
+          <b-button squared size="sm" @click="sortListByStatus(display.sortLabel)">
+            <i class="fa-solid fa-sort"></i>
+            {{ display.sortLabel }}
           </b-button>
         </div>
       </div>
@@ -26,7 +26,7 @@
       :error-message="display.errorMessage.loadingTripData"
     />
     <div v-if="!is.loadingTripData && !error.loadingTripData && display.tripList.length">
-      <div v-for="trip in display.tripList" :key="trip.TridpId">
+      <div v-for="trip in display.tripList" :key="trip.TripId">
         <trip-item 
           :trip-details="trip"
         />
@@ -57,6 +57,7 @@ export default {
       },
       display: {
         tripList: [],
+        sortLabel: 'Status',
         errorMessage: {
           loadingTripData: '',
         }
@@ -86,8 +87,14 @@ export default {
           this.is.loadingTripData = false;
         })
     },
-    sortListByStatus() {
-      this.display.tripList.sort((a, b) => a.Status < b.Status ? -1 : 1)
+    sortListByStatus(label) {
+      if (label === 'Status') {
+        this.display.tripList.sort((a, b) => a.Status < b.Status ? -1 : 1)
+        this.display.sortLabel = 'Trip ID'
+      } else if (label === 'Trip ID') {
+        this.display.tripList.sort((a, b) => a.TripId < b.TripId ? -1 : 1)
+        this.display.sortLabel = 'Status'
+      }
     },
     filterByProperty(prop) {
       this.display.tripList = this.display.tripList.filter(trip => trip[prop] === prop)
@@ -96,3 +103,11 @@ export default {
   },
 }
 </script>
+<style scoped>
+  button {
+    background-color: white !important;
+    color: rgba(244, 112, 40) !important;
+    border: 1px solid rgba(244, 112, 40) !important;
+    box-shadow: none !important;
+  }
+</style>
