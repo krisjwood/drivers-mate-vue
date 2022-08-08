@@ -25,12 +25,12 @@
   }
 
   /* Netlogix styles override */
-  button {
+  button:not(.close)  {
     background-color: rgba(244, 112, 40) !important;
     border: 1px solid rgba(244, 112, 40) !important;
     font-size: 1rem !important;
     font-family: Roboto !important;
-    font-weight: 400;
+    font-weight: 400 !important;
   }
 
   button:hover {

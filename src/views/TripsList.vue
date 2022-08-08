@@ -3,45 +3,49 @@
     <child-page-header
       title="Trips List"
     />
-    <div v-if="is.loadingTripData">
-      <div class="d-flex justify-content-center mb-1">
-        <b-spinner label="Loading drivers..."></b-spinner>
-      </div>
-    </div>
-    <div v-else-if="error.loadingTripData">
-      <b-alert 
-        show
-        dismissible
-        variant="danger"
-        >
-        {{ this.display.errorMessage.loadingTripData }}
-      </b-alert>
-    </div>
-    <div v-else>
-      <div v-for="trip in display.tripList" :key="trip.TridpId">
-        <div>
-          <a @click="goToTrip(trip.TripId)">
-            <trip-item 
-              :trip-details="trip"
-            />
-          </a> 
+    <div class="row">
+      <div class="col d-flex justify-content-between mb-2">
+        <div class="d-flex align-items-center ml-1 font-weight-bold">
+          Total: {{ display.tripList.length }}
+        </div>
+        <div class="mr-1">
+          <!-- <b-button @click="filterByProperty('')">
+            <i class="fa-solid fa-filter m-2 pt-1"></i>
+          </b-button> -->
+          <b-button squared size="sm" @click="sortListByStatus()">
+            <i class="fa-solid fa-sort mx-2"></i>
+            Sort by Status
+          </b-button>
         </div>
       </div>
     </div>
-    
+    <loading-and-error-handler
+      :loading="is.loadingTripData"
+      loading-message="Loading trips..."
+      :error="error.loadingTripData"
+      :error-message="display.errorMessage.loadingTripData"
+    />
+    <div v-if="!is.loadingTripData && !error.loadingTripData && display.tripList.length">
+      <div v-for="trip in display.tripList" :key="trip.TridpId">
+        <trip-item 
+          :trip-details="trip"
+        />
+      </div>
+    </div>
   </div>
 </template>
 <script>
-import TripsData from '../data/TripsData';
-import TripItem from '../components/TripItem'
-import ChildPageHeader from '../components/ChildPageHeader'
-import router from '@/router';
+import TripsData from '@/data/TripsData';
+import TripItem from '@/components/TripItem'
+import ChildPageHeader from '@/components/ChildPageHeader'
+import LoadingAndErrorHandler from '@/components/LoadingAndErrorHandler';
 
 export default {
   name: 'TripsList',
   components: {
     ChildPageHeader,
-    TripItem
+    TripItem,
+    LoadingAndErrorHandler,
   },
   data() {
     return {
@@ -54,7 +58,7 @@ export default {
       display: {
         tripList: [],
         errorMessage: {
-          loadingTripData: null,
+          loadingTripData: '',
         }
       }
     }
@@ -64,7 +68,7 @@ export default {
   },
   methods: {
     getTrips(driverId = null) {
-      this.display.errorMessage.loadingTripData = null;
+      this.display.errorMessage.loadingTripData = '';
 
       TripsData.getTrips()
         .then((response) => {
@@ -82,11 +86,13 @@ export default {
           this.is.loadingTripData = false;
         })
     },
-    goToTrip(tripId) {
-      router.push({ name: 'trip-details', params: { tripId, } })
+    sortListByStatus() {
+      this.display.tripList.sort((a, b) => a.Status < b.Status ? -1 : 1)
+    },
+    filterByProperty(prop) {
+      this.display.tripList = this.display.tripList.filter(trip => trip[prop] === prop)
+
     }
-
-
   },
 }
 </script>
