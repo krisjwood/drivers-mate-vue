@@ -1,28 +1,31 @@
 <template>
-  <div class="trip-item-wrapper">
-      <div class="row">
-        <div class="col">
-          <b>Trip ID:</b>
-          {{ tripDetails.TripId }}
-        </div>
-        <div class="col"> 
+  <b-card header-tag="header" class="mb-3">
+   <template #header>
+      <h6 class="d-flex justify-content-between mb-0">
+        <b>Trip ID: {{ tripDetails.TripId }}</b>
+        <i>Driver ID: {{ tripDetails.DriverId }}</i>
+      </h6>
+    </template>
+    <div class="row d-flex justify-content-between">
+      <b-card-text class="col">
+        <div>
           <b>Status:</b> 
           {{ tripDetails.Status }}
         </div>
-      </div>
-      <div class="row">
-        <div class="col">
-          <b>Driver ID:</b>
-          {{ tripDetails.DriverId }}
-        </div>
-        <div class="col"> 
+        <div>
           <b>Rego:</b> 
           {{ tripDetails.TruckRegistration }}
         </div>
+      </b-card-text>
+      <div class="m-2">
+        <b-button squared @click="goToTrip(tripDetails.TripId)">Details</b-button>
       </div>
-  </div>
+    </div>
+  </b-card>
 </template>
 <script>
+import router from '@/router'
+
 export default {
   name: 'TripItem',
   props: {
@@ -31,15 +34,10 @@ export default {
       required: true,
     }
   },
+  methods: {
+    goToTrip(tripId) {
+      router.push({ name: 'trip-details', params: { tripId, } })
+    }
+  }
 }
 </script>
-<style scoped>
-  .trip-item-wrapper {
-    width: 90vw;
-    background-color: rgba(19, 28, 69, 0.37);
-    border: 2px solid rgba(19, 28, 69);
-    margin-bottom: 1rem;
-    padding: 0.5rem;
-    border-radius: 10px;
-  }
-</style>

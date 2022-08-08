@@ -1,24 +1,15 @@
 <template>
-  <div class="container landing-fade-in">
-      <div class="d-flex justify-content-center align-items-center mt-5">
-        <img class="h-auto w-75" src="../assets/drivers-mate-nl-logo.png" alt="Netlogix Driver's Mate Logo">
-      </div>
-    <div v-if="is.loadingDriverData">
-      <div class="d-flex justify-content-center mb-1">
-        <b-spinner label="Loading drivers..."></b-spinner>
-      </div>
-      <p class="text-center">Loading drivers...</p>
+  <div>
+    <div class="d-flex justify-content-center align-items-center mt-5">
+      <img class="h-auto w-75" src="../assets/drivers-mate-nl-logo.png" alt="Netlogix Driver's Mate Logo">
     </div>
-    <div v-else-if="error.loadingDriverData">
-      <b-alert 
-        :show="error.loadingDriverData"
-        dismissible
-        variant="danger"
-        >
-        {{ this.display.errorMessage.loadingDriverData }}
-      </b-alert>
-    </div>
-    <div v-else>
+    <loading-and-error-handler
+      :loading="is.loadingDriverData"
+      loading-message="Loading drivers..."
+      :error="error.loadingDriverData"
+      :error-message="display.errorMessage.loadingDriverData"
+    />
+    <div v-if="!is.loadingDriverData && !error.loadingDriverData && selected.availableDrivers.length">
       <div class="row mr-3 ml-3">
         <b-form-select :disabled="!selected.availableDrivers.length" v-model="selected.driver" :options="selected.availableDrivers">
           <template #first>
@@ -27,16 +18,21 @@
         </b-form-select>
       </div>
       <div class="d-flex justify-content-center">
-        <b-button :disabled="!selected.driver" @click="goToTripsList()" class="m-2" variant="success">View Trips</b-button>
+        <b-button squared :disabled="!selected.driver" @click="goToTripsList()" class="m-2">View Trips</b-button>
       </div>
     </div>
   </div>
 </template>
 <script>
 import router from '@/router'
-import DriverData from '../data/DriversData'
+import DriverData from '@/data/DriversData'
+import LoadingAndErrorHandler from '@/components/LoadingAndErrorHandler';
+
 export default {
   name: 'LandingView',
+  components: {
+    LoadingAndErrorHandler,
+  },
   data() {
     return {
       is: {
@@ -51,7 +47,7 @@ export default {
       },
       display: {
         errorMessage: {
-          loadingDriverData: null,
+          loadingDriverData: '',
         }
       }
     }
@@ -61,7 +57,7 @@ export default {
   },
   methods: {
     async getDrivers() {
-      this.display.errorMessage.loadingDriverData = null;
+      this.display.errorMessage.loadingDriverData = '';
 
       this.selected.availableDrivers = await DriverData.getDrivers()
         .then((response) => {
