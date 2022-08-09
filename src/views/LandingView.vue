@@ -9,9 +9,13 @@
       :error="error.loadingDriverData"
       :error-message="display.errorMessage.loadingDriverData"
     />
-    <div v-if="!is.loadingDriverData && !error.loadingDriverData && selected.availableDrivers.length">
+    <div v-if="!is.loadingDriverData && !error.loadingDriverData && selected.availableDrivers">
       <div class="row mr-3 ml-3">
-        <b-form-select :disabled="!selected.availableDrivers.length" v-model="selected.driver" :options="selected.availableDrivers">
+        <b-form-select 
+          :disabled="!selected.availableDrivers" 
+          v-model="selected.driver" 
+          :options="selected.availableDrivers"
+          >
           <template #first>
             <b-form-select-option :value="null" disabled>-- Select a driver --</b-form-select-option>
           </template>
@@ -64,9 +68,17 @@ export default {
           let drivers = response.data.map((driver) => {
             return {
               text: `${driver.FirstName} ${driver.LastName} (${driver.Shipper})`,
-              value: driver.DriverId
+              value: driver.DriverId,
+              ...driver
             }
           })
+          drivers.unshift(
+            {
+              text: 'All',
+              value: null
+            }
+          )
+
           return drivers
         })
         .catch((error) => {
@@ -78,7 +90,7 @@ export default {
         })
     },
     goToTripsList() {
-      router.push({ name: 'trips-list', params: { driverId: this.selected.driver.DriverId } })
+      router.push({ name: 'trips-list', params: { driverId: this.selected.driver.DriverId || null } })
       sessionStorage.setItem("selectedDriver", this.selected.driver);
     },
   },
