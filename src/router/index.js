@@ -22,8 +22,8 @@ const routes = [
   },
   {
     path: '/consignments',
-    name: 'trip-consignments',
-    component: () => import('../views/TripConsignments.vue')
+    name: 'trip-consignment',
+    component: () => import('../views/TripConsignment.vue')
   }
 ]
 
