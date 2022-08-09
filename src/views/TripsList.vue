@@ -1,12 +1,15 @@
 <template>
   <div>
     <child-page-header
-      title="Trips List"
+      :title="`${display.tripList.length} Trips`"
+      :show="true"
     />
     <div class="row">
       <div class="col d-flex justify-content-between mb-2">
         <div class="d-flex align-items-center ml-1 font-weight-bold">
-          Total: {{ display.tripList.length }}
+          <h3>
+            {{ display.tripList.length }} Trips
+          </h3>
         </div>
         <div class="mr-1">
           <!-- <b-button @click="filterByProperty('')">
@@ -68,7 +71,7 @@ export default {
     this.getTrips(this.$route.params.driverId) 
   },
   methods: {
-    getTrips(driverId = null) {
+    getTrips(driverId) {
       this.display.errorMessage.loadingTripData = '';
 
       TripsData.getTrips()

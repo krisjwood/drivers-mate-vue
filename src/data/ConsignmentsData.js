@@ -28,10 +28,4 @@ export default {
         })
       return response;
      },
-  }
-
-
-    // Phase 2 API calls:
-    // async createConsignment() {},
-    // async updateConsignment(id) {},
-    // async allocateConsignmentToTrip() {},
+  };

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="overlay" v-show="show">
+    <div class="overlay" v-if="show">
       <b-overlay show rounded="sm">
         <router-view/>
         <div class="footer-wrapper">
@@ -29,8 +29,11 @@
       </template>
     </b-overlay>
     </div>
-    <div else>
+    <div v-else>
       <router-view/>
+      <b-button squared id="page-top" size="lg" v-show="scrollY > 1" @click="scrollToTop">
+        <i class="fa-solid fa-angle-up"></i>
+      </b-button>
       <div class="footer-wrapper">
         <span>Kris Wood &copy; 2022</span>
       </div>
@@ -40,13 +43,19 @@
 <script>
 
 export default {
+  name: 'App',
   data() {
     return {
       show: false,
+      scrollTimer: 0,
+      scrollY: 0,
     }
   },
   created() {
     this.checkIfDesktop()
+  },
+  mounted() {
+    window.addEventListener('scroll', this.handleScroll);
   },
   methods: {
     checkIfDesktop() {
@@ -56,17 +65,39 @@ export default {
     },
     closeOverlay() {
       this.show = false;
-    }
+    },
+    handleScroll() {
+        if (this.scrollTimer) return;
+        this.scrollTimer = setTimeout(() => {
+          this.scrollY = window.scrollY;
+          clearTimeout(this.scrollTimer);
+          this.scrollTimer = 0;
+        }, 100);
+      },
+    scrollToTop() {
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+      });
+    },
   }
 }
 </script>
 <style>
+  #page-top {
+    z-index: 999;
+    position: fixed;
+    bottom: 50px;
+    right: 50px;
+    background-color: rgba(19, 28, 69) !important;
+    border: none !important;
+  }
   .fa-triangle-exclamation {
     font-size: 10rem;
     color: rgba(244, 112, 40);
   }
   .footer-wrapper {
-    position: static;
+    position: fixed;
     left: 0;
     bottom: 0;
     width: 100%;
@@ -74,6 +105,7 @@ export default {
     background-color: white;
     text-align: center;
     padding: 10px 0px;
+    margin-top: 30px
   }
 
   body {
