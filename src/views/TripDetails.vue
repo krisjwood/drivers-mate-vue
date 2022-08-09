@@ -2,18 +2,19 @@
   <div>
     <child-page-header
       :title="`Trip #${$route.params.tripId}`"
+      :show="!!display.tripDetails.TripId"
     />
     <loading-and-error-handler
       :loading="is.loadingTripData"
-      loading-message="Loading trips..."
-      :error="error.loadingTripData"
+      loading-message="Loading trip..."
+      :error="error.loadingTripData || !display.tripDetails.TripId"
       :error-message="display.errorMessage.loadingTripData"
     />
     <div v-if="!is.loadingTripData && !error.loadingTripData && display.tripDetails">
       <div class="card mb-3">
         <div class="card-header d-flex justify-content-between">
           <div>
-            <b>{{ display.tripDetails.Consignments.length }} Consignments</b>
+            <b>{{ display.tripDetails.Consignments && display.tripDetails.Consignments.length }} Consignments</b>
           </div>
           <div>
             <b>Status: {{ display.tripDetails.Status }}</b>
@@ -31,15 +32,14 @@
           <div class="row d-flex justify-content-between">
             <b-card-text class="col">
               <div>
-                {{  }}              
+                <b>Pickup</b>{{ formatShortAddress(consignment.PickupAddress) }}
               </div>
               <div>
-                <b>Pickup: </b>{{ Object.values(consignment.PickupAddress).join(', ') }}
-                <b>Delivery: </b>{{ Object.values(consignment.DeliveryAddress).join(', ') }}
+                <b>Delivery</b>{{ formatShortAddress(consignment.DeliveryAddress) }}
               </div>
             </b-card-text>
           </div>
-            <div class="m-2">
+            <div class="mt-3">
               <b-button squared @click="goToTrip(consignment.OrderId)">Instructions</b-button>
             </div>
           <template #footer>
@@ -54,12 +54,11 @@
   </div>
 </template>
 <script>
-  const dayjs = require('dayjs')
   import TripsData from '@/data/TripsData'
   import ChildPageHeader from '@/components/ChildPageHeader'
   import router from '@/router'
   import LoadingAndErrorHandler from '@/components/LoadingAndErrorHandler'
-
+  import { formatDateTime } from '@/components/helpers.js'
   export default {
     name: 'TripDetails',
     components: {
@@ -75,7 +74,7 @@
           loadingTripData: false,
         },
         display: {
-          tripDetails: null,
+          tripDetails: {},
           errorMessage: {
             loadingTripData: '',
           }
@@ -86,12 +85,12 @@
       this.getTrip(this.$route.params.tripId)
     },
     methods: {
-      getTrip(tripId) {
+      async getTrip(tripId) {
         this.display.errorMessage.loadingTripData = '';
         
-        TripsData.getTrip(tripId)
+        this.display.tripDetails = await TripsData.getTrip(tripId)
         .then((response) => {
-          this.display.tripDetails = response.data
+          return response.data
         })
         .catch((error) => {
           this.error.loadingTripData = true;
@@ -104,9 +103,11 @@
       goToTrip(OrderId) {
         router.push({ name: 'trip-consignment', params: { OrderId, } })
       },
-      formatDateTime(date) {
-        return dayjs(date).format('ddd, MMM D, YYYY h:mm A')
+      formatShortAddress(address) {
+        let addressArray = Object.values(address)
+        return `...${addressArray[addressArray.length - 2]}, ${addressArray[addressArray.length - 1]}`
       },
+      formatDateTime,
     },
   }
 </script>
