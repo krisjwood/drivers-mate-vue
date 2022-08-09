@@ -1,7 +1,7 @@
 <template>
-  <div v-if="loading" class="my-5">
+  <div v-if="loading" class="my-3">
     <div class="row d-flex justify-content-center mb-1">
-      <b-spinner style="width: 5rem; height: 5rem;" :label="loadingMessage"></b-spinner>
+      <b-spinner style="width: 3rem; height: 3rem;" :label="loadingMessage"></b-spinner>
     </div>
     <div class="row d-flex justify-content-center">
       <span>{{ loadingMessage }}</span>
