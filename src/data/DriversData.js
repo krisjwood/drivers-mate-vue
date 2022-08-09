@@ -16,8 +16,4 @@ export default {
       });
     return response;
   },
-
-  
-  // Phase 2 API calls:
-  // async createDriver() {}
 };
