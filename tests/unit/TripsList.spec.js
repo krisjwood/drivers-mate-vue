@@ -3,7 +3,6 @@ import TripsList from '@/views/TripsList'
 import BootstrapVue from 'bootstrap-vue'
 import VueRouter from 'vue-router'
 
-
 const localVue = createLocalVue()
 const router = new VueRouter()
 
@@ -17,7 +16,7 @@ describe('TripsList.vue', () => {
       router,
       mocks: {
         $route: {
-          params: { driverId: '123' }
+          params: { driverId: 'KeeganB' }
         }
       },
     })

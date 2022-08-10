@@ -1,4 +1,4 @@
-import { shallowMount, createLocalVue } from '@vue/test-utils'
+import { mount, createLocalVue } from '@vue/test-utils'
 import LandingView from '@/views/LandingView'
 import BootstrapVue from 'bootstrap-vue'
 
@@ -7,14 +7,14 @@ localVue.use(BootstrapVue)
 
 describe('LandingView.vue', () => {
   it('is a Vue instance', () => {
-    const wrapper = shallowMount(LandingView, {
+    const wrapper = mount(LandingView, {
       localVue,
     })
     expect(wrapper.find('LandingView').vm)
   })
 
   it('Driver select renders', () => {
-    const wrapper = shallowMount(LandingView, {
+    const wrapper = mount(LandingView, {
       localVue,
       data() {
         return {
