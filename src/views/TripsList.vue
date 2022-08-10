@@ -2,7 +2,7 @@
   <div>
     <child-page-header
       :title="`${display.tripList.length} Trips`"
-      :show="true"
+      :show="!!(display.tripList && display.tripList.length)"
     />
     <div class="row">
       <div class="col d-flex justify-content-between mb-2">
