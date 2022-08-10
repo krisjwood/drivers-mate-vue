@@ -36,6 +36,7 @@
   import ChildPageHeader from '@/components/ChildPageHeader'
   import LoadingAndErrorHandler from '@/components/LoadingAndErrorHandler'
   import ConsignmentItem from '@/components/ConsignmentItem'
+  import { setSessionData, getSessionData } from '@/components/helpers'
 
   export default {
     name: 'TripDetails',
@@ -61,14 +62,20 @@
       }
     },
     mounted() {
-      this.getTrip(this.$route.params.tripId)
+      if (this.$route.params.id) {
+        this.getTripById(this.$route.params.id)
+      } else if (sessionStorage.getItem('tripDetails')) {
+        const sessiontripDetails  = this.getSessionData('tripDetails')
+        this.getTripById(sessiontripDetails.TripId)
+      }
     },
     methods: {
-      async getTrip(tripId) {
+      async getTripById(tripId) {
         this.display.errorMessage.loadingTripData = '';
         
         this.display.tripDetails = await TripsData.getTrip(tripId)
         .then((response) => {
+          this.setSessionData('tripDetails', JSON.stringify(response.data))
           return response.data
         })
         .catch((error) => {
@@ -79,6 +86,8 @@
           this.is.loadingTripData = false;
         })
       },
+      setSessionData,
+      getSessionData,
     },
   }
 </script>

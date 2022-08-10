@@ -24,8 +24,6 @@
   </b-card>
 </template>
 <script>
-import { routePush } from './helpers'
-
 export default {
   name: 'TripItem',
   props: {
@@ -36,7 +34,9 @@ export default {
   },
   methods: {
     goToTrip(tripId) {
-      routePush({ name: 'trip-details', params: { tripId, } })
+      this.$router.push({name: 'trip-details', params: {
+        id: tripId
+      }})
     }
   }
 }

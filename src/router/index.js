@@ -1,35 +1,31 @@
-import Vue from 'vue'
-import VueRouter from 'vue-router'
-import LandingView from '../views/LandingView'
+import LandingView from '@/views/LandingView'
+import TripsList from '@/views/TripsList'
+import TripDetails from '@/views/TripDetails'
+import TripConsignment from '@/views/TripConsignment'
 
-Vue.use(VueRouter)
+const Router = {
+  routes: [
+    {
+      path: '/',
+      name: 'landing',
+      component: LandingView
+    },
+    {
+      path: '/trips/:id',
+      name: 'trips-list',
+      component: TripsList
+    },
+    {
+      path: '/trip/:id',
+      name: 'trip-details',
+      component: TripDetails
+    },
+    {
+      path: '/consignments/:id',
+      name: 'trip-consignment',
+      component: TripConsignment
+    },
+  ]
+}
 
-const routes = [
-  {
-    path: '/',
-    name: 'landing',
-    component: LandingView
-  },
-  {
-    path: '/trips',
-    name: 'trips-list',
-    component: () => import('../views/TripsList.vue')
-  },
-  {
-    path: '/trip',
-    name: 'trip-details',
-    component: () => import('../views/TripDetails.vue')
-  },
-  {
-    path: '/consignments',
-    name: 'trip-consignment',
-    component: () => import('../views/TripConsignment.vue')
-  }
-]
-
-const router = new VueRouter({
-  mode: 'history',
-  routes
-})
-
-export default router
+export default Router

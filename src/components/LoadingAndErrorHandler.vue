@@ -13,7 +13,7 @@
       dismissible
       variant="danger"
       >
-      {{ errorMessage }}. <b-link href="/trips">Go back</b-link>
+      {{ errorMessage }}. Refresh or <b-link href="/">Go home</b-link>
     </b-alert>
   </div>
 </template>

@@ -62,7 +62,7 @@ export default {
     }
   },
   mounted() {
-    this.getTrips(this.$route.params.driverId) 
+    this.getTrips(this.$route.params.id) 
   },
   methods: {
     async getTrips(driverId) {
