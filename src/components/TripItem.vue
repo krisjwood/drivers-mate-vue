@@ -24,7 +24,7 @@
   </b-card>
 </template>
 <script>
-import router from '@/router'
+import { routePush } from './helpers'
 
 export default {
   name: 'TripItem',
@@ -36,7 +36,7 @@ export default {
   },
   methods: {
     goToTrip(tripId) {
-      router.push({ name: 'trip-details', params: { tripId, } })
+      routePush({ name: 'trip-details', params: { tripId, } })
     }
   }
 }

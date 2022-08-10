@@ -28,7 +28,7 @@
   </div>
 </template>
 <script>
-import router from '@/router'
+import { routePush } from '@/components/helpers';
 import DriverData from '@/data/DriversData'
 import LoadingAndErrorHandler from '@/components/LoadingAndErrorHandler';
 
@@ -90,7 +90,7 @@ export default {
         })
     },
     goToTripsList() {
-      router.push({ name: 'trips-list', params: { driverId: this.selected.driver.DriverId || null } })
+      routePush({ name: 'trips-list', params: { driverId: this.selected.driver.DriverId || null } })
       sessionStorage.setItem("selectedDriver", this.selected.driver);
     },
   },

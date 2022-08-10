@@ -1,8 +1,8 @@
 <template>
   <div>
     <child-page-header
-      :title="`Trip #${$route.params.tripId}`"
-      :show="!!display.tripDetails.TripId"
+      :title="`Trip #${display.tripDetails && display.tripDetails.TripId}`"
+      :show="display.tripDetails ? !!display.tripDetails.TripId : false"
     />
     <loading-and-error-handler
       :loading="is.loadingTripData"
@@ -22,33 +22,11 @@
         </div>
       </div>
       <div v-for="(consignment, index) in display.tripDetails.Consignments" :key="consignment.OrderId">
-        <b-card :title="`${formatDateTime(consignment.RequestedPickupTime)}`" header-tag="header" class="mb-3">
-          <template #header>
-            <h6 class="d-flex justify-content-between mb-0">
-              <b>{{ consignment.Items.length }} Items</b>
-                {{ consignment.Status }}
-            </h6>
-            </template>
-          <div class="row d-flex justify-content-between">
-            <b-card-text class="col">
-              <div>
-                <b>Pickup</b>{{ formatShortAddress(consignment.PickupAddress) }}
-              </div>
-              <div>
-                <b>Delivery</b>{{ formatShortAddress(consignment.DeliveryAddress) }}
-              </div>
-            </b-card-text>
-          </div>
-            <div class="mt-3">
-              <b-button squared @click="goToTrip(consignment.OrderId)">Instructions</b-button>
-            </div>
-          <template #footer>
-            <div class="row d-flex justify-content-between mx-1">
-              <em>Order ID: {{consignment.OrderId}}</em>
-              <div>{{ index + 1 }}/{{ display.tripDetails.Consignments.length }}</div>
-            </div>
-          </template>
-        </b-card>
+        <consignment-item 
+          :consignment="consignment"
+          :index="index"
+          :quantity="display.tripDetails.Consignments.length"
+        />
       </div>
     </div>
   </div>
@@ -56,14 +34,15 @@
 <script>
   import TripsData from '@/data/TripsData'
   import ChildPageHeader from '@/components/ChildPageHeader'
-  import router from '@/router'
   import LoadingAndErrorHandler from '@/components/LoadingAndErrorHandler'
-  import { formatDateTime } from '@/components/helpers.js'
+  import ConsignmentItem from '@/components/ConsignmentItem'
+
   export default {
     name: 'TripDetails',
     components: {
       ChildPageHeader,
       LoadingAndErrorHandler,
+      ConsignmentItem
     },
     data() {
       return {
@@ -100,14 +79,6 @@
           this.is.loadingTripData = false;
         })
       },
-      goToTrip(OrderId) {
-        router.push({ name: 'trip-consignment', params: { OrderId, } })
-      },
-      formatShortAddress(address) {
-        let addressArray = Object.values(address)
-        return `...${addressArray[addressArray.length - 2]}, ${addressArray[addressArray.length - 1]}`
-      },
-      formatDateTime,
     },
   }
 </script>
