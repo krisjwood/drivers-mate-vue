@@ -1,4 +1,4 @@
-import { mount, createLocalVue } from '@vue/test-utils'
+import { shallowMount, createLocalVue } from '@vue/test-utils'
 import ConsignmentItem from '@/components/ConsignmentItem'
 import BootstrapVue from 'bootstrap-vue'
 
@@ -36,7 +36,7 @@ describe('ConsignmentItem.vue', () => {
       OrderId: "CH-1010"
     };
   it('is a Vue instance', () => {
-    const wrapper = mount(ConsignmentItem, {
+    const wrapper = shallowMount(ConsignmentItem, {
       localVue,
       propsData: {
         consignment,

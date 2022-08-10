@@ -1,4 +1,4 @@
-import { mount, createLocalVue } from '@vue/test-utils'
+import { shallowMount, createLocalVue } from '@vue/test-utils'
 import TripItem from '@/components/TripItem'
 import BootstrapVue from 'bootstrap-vue'
 
@@ -43,7 +43,7 @@ describe('TripItem.vue', () => {
       ]
     }
   it('is a Vue instance', () => {
-    const wrapper = mount(TripItem, {
+    const wrapper = shallowMount(TripItem, {
       localVue,
       propsData: {
         tripDetails,

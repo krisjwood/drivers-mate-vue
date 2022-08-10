@@ -1,4 +1,4 @@
-import { mount, createLocalVue } from '@vue/test-utils'
+import { shallowMount, createLocalVue } from '@vue/test-utils'
 import LoadingAndErrorHandler from '@/components/LoadingAndErrorHandler'
 import BootstrapVue from 'bootstrap-vue'
 
@@ -7,7 +7,7 @@ localVue.use(BootstrapVue)
 
 describe('LoadingAndErrorHandler.vue', () => {
   it('is a Vue instance', () => {
-    const wrapper = mount(LoadingAndErrorHandler, {
+    const wrapper = shallowMount(LoadingAndErrorHandler, {
       localVue,
       propsData: {
         loading: true,

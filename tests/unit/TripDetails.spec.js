@@ -1,4 +1,4 @@
-import { mount, createLocalVue } from '@vue/test-utils'
+import { shallowMount, createLocalVue } from '@vue/test-utils'
 import TripDetails from '@/views/TripDetails'
 import BootstrapVue from 'bootstrap-vue'
 import VueRouter from 'vue-router'
@@ -11,7 +11,7 @@ localVue.use(VueRouter)
 
 describe('TripDetails.vue', () => {
   it('is a Vue instance', () => {
-    const wrapper = mount(TripDetails, {
+    const wrapper = shallowMount(TripDetails, {
       localVue,
       router,
       mocks: {
