@@ -1,42 +1,36 @@
 <template>
   <div>
-    <div class="overlay" v-if="show">
+    <div class="overlay" v-if="show && this.$route.name === 'landing'">
       <b-overlay show rounded="sm">
-        <router-view/>
-        <div class="footer-wrapper">
-          <span>Kris Wood &copy; 2022</span>
-        </div>
-      <template #overlay>
-        <div class="text-center">
-          <div class="row justify-content-center">
-              <i class="fa-solid fa-triangle-exclamation fa-fade"></i>
-            <h2>This application is intended for mobile and tablet use only.</h2>
-            <h3>Viewing on a desktop may be difficult to navigate or result in unexpected behaviour.</h3>
+        <!-- <router-view /> -->
+        <template #overlay>
+          <div class="text-center">
+            <div class="row justify-content-center">
+                <i class="fa-solid fa-triangle-exclamation fa-fade"></i>
+              <h2>This application is intended for mobile and tablet use only.</h2>
+              <h3>Viewing on a desktop may be difficult to navigate or result in unexpected behaviour.</h3>
+            </div>
+            <div>
+              <b-button
+                class="mt-5"
+                ref="cancel"
+                size="sm"
+                aria-describedby="cancel-label"
+                @click="closeOverlay()"
+                squared
+                >
+                Cancel
+              </b-button>
+            </div>
           </div>
-          <div>
-            <b-button
-              class="mt-5"
-              ref="cancel"
-              size="sm"
-              aria-describedby="cancel-label"
-              @click="closeOverlay()"
-              squared
-              >
-              Cancel
-            </b-button>
-          </div>
-        </div>
-      </template>
-    </b-overlay>
+        </template>
+      </b-overlay>
     </div>
     <div v-else>
       <router-view/>
       <b-button squared id="page-top" size="lg" v-show="scrollY > 1" @click="scrollToTop">
         <i class="fa-solid fa-angle-up"></i>
       </b-button>
-      <div class="footer-wrapper">
-        <span>Kris Wood &copy; 2022</span>
-      </div>
     </div>
   </div>
 </template>
@@ -84,6 +78,9 @@ export default {
 }
 </script>
 <style>
+  .overlay {
+    margin-top: 35vh;
+  }
   #page-top {
     z-index: 999;
     position: fixed;
@@ -92,20 +89,10 @@ export default {
     background-color: rgba(19, 28, 69) !important;
     border: none !important;
   }
+
   .fa-triangle-exclamation {
     font-size: 10rem;
     color: rgba(244, 112, 40);
-  }
-  .footer-wrapper {
-    position: fixed;
-    left: 0;
-    bottom: 0;
-    width: 100%;
-    color: black;
-    background-color: white;
-    text-align: center;
-    padding: 10px 0px;
-    margin-top: 30px
   }
 
   body {

@@ -2,24 +2,18 @@
   <div>
     <child-page-header
       :title="`${display.tripList.length} Trips`"
-      :show="true"
+      :show="!!(display.tripList && display.tripList.length)"
     />
     <div class="row">
       <div class="col d-flex justify-content-between mb-2">
-        <div class="d-flex align-items-center ml-1 font-weight-bold">
-          <h3>
-            {{ display.tripList.length }} Trips
-          </h3>
-        </div>
-        <div class="mr-1">
-          <!-- <b-button @click="filterByProperty('')">
-            <i class="fa-solid fa-filter m-2 pt-1"></i>
-          </b-button> -->
-          <b-button squared size="sm" @click="sortListByStatus(display.sortLabel)">
-            <i class="fa-solid fa-sort"></i>
-            {{ display.sortLabel }}
-          </b-button>
-        </div>
+        <b-button disabled squared size="sm" @click="sortListByStatus(display.sortLabel)">
+          <i class="fa-solid fa-filter"></i>
+          Filter
+        </b-button>
+        <b-button squared size="sm" @click="sortListByStatus(display.sortLabel)">
+          <i class="fa-solid fa-sort"></i>
+          {{ display.sortLabel }}
+        </b-button>
       </div>
     </div>
     <loading-and-error-handler
@@ -71,15 +65,15 @@ export default {
     this.getTrips(this.$route.params.driverId) 
   },
   methods: {
-    getTrips(driverId) {
+    async getTrips(driverId) {
       this.display.errorMessage.loadingTripData = '';
 
-      TripsData.getTrips()
+      this.display.tripList = await TripsData.getTrips()
         .then((response) => {
           if (driverId) {
-            this.display.tripList = response.data.filter((trip) => trip.DriverId === driverId)
+            return response.data.filter((trip) => trip.DriverId === driverId)
           } else {
-            this.display.tripList = [ ...response.data ]
+            return [ ...response.data ]
           }
         })
         .catch((error) => {

@@ -71,10 +71,4 @@
     background-color: rgba(244, 112, 40) !important;
     color: rgba(19, 28, 69) !important;
   }
-
-  .user-button:active {
-    border: none;
-  }
-
-
 </style>
