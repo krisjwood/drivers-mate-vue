@@ -101,7 +101,7 @@
   import ConsignmentsData from '@/data/ConsignmentsData' 
   import ChildPageHeader from '@/components/ChildPageHeader'
   import LoadingAndErrorHandler from '@/components/LoadingAndErrorHandler'
-  import { formatDateTime } from '@/components/helpers.js'
+  import { formatDateTime, setSessionData, getSessionData } from '@/components/helpers.js'
 
   export default {
     name: 'TripConsignments',
@@ -127,12 +127,18 @@
       }
     },
     mounted() {
-      this.getConsignmentById(this.$route.params.OrderId)
+      if (this.$route.params.id) {
+        this.getConsignmentById(this.$route.params.id)
+      } else if (sessionStorage.getItem('consignmentDetails')) {
+          const sessionConsignmentDetails  = this.getSessionData('consignmentDetails')
+          this.getConsignmentById(sessionConsignmentDetails.OrderId)
+      }
     },
     methods: {
       async getConsignmentById(OrderId) {
         this.display.consignmentDetails = await ConsignmentsData.getConsignment(OrderId)
         .then((response) => {
+          this.setSessionData('consignmentDetails', JSON.stringify(response.data))
           return response.data
         })
         .catch((error) => {
@@ -163,6 +169,8 @@
           autoHideDelay: 1000,
         })
       },
+      setSessionData,
+      getSessionData,
       formatDateTime,
     },
   }

@@ -28,7 +28,7 @@
   </b-card>
 </template>
 <script>
-import { formatDateTime, routePush } from '@/components/helpers.js'
+import { formatDateTime } from '@/components/helpers.js'
 
 export default {
   name: 'ConsignmentItem',
@@ -48,14 +48,15 @@ export default {
   },
   methods: {
     goToTrip(OrderId) {
-      routePush({ name: 'trip-consignment', params: { OrderId, } })
+      this.$router.push({name: 'trip-consignment', params: {
+        id: OrderId
+      }})
     },
     formatShortAddress(address) {
         let addressArray = Object.values(address)
         return `...${addressArray[addressArray.length - 2]}, ${addressArray[addressArray.length - 1]}`
       },
     formatDateTime,
-    routePush,
   },
 }
 </script>

@@ -2,12 +2,11 @@
   <div>
     <div class="overlay" v-if="show && this.$route.name === 'landing'">
       <b-overlay show rounded="sm">
-        <!-- <router-view /> -->
         <template #overlay>
           <div class="text-center">
             <div class="row justify-content-center">
                 <i class="fa-solid fa-triangle-exclamation fa-fade"></i>
-              <h2>This application is intended for mobile and tablet use only.</h2>
+              <h2>This application is intended for mobile and tablet use.</h2>
               <h3>Viewing on a desktop may be difficult to navigate or result in unexpected behaviour.</h3>
             </div>
             <div>
