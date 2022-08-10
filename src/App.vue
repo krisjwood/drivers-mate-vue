@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="overlay" v-if="show">
+    <div class="overlay" v-if="show && this.$route.name === 'landing'">
       <b-overlay show rounded="sm">
         <!-- <router-view /> -->
         <template #overlay>

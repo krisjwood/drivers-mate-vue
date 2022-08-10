@@ -65,15 +65,15 @@ export default {
     this.getTrips(this.$route.params.driverId) 
   },
   methods: {
-    getTrips(driverId) {
+    async getTrips(driverId) {
       this.display.errorMessage.loadingTripData = '';
 
-      TripsData.getTrips()
+      this.display.tripList = await TripsData.getTrips()
         .then((response) => {
           if (driverId) {
-            this.display.tripList = response.data.filter((trip) => trip.DriverId === driverId)
+            return response.data.filter((trip) => trip.DriverId === driverId)
           } else {
-            this.display.tripList = [ ...response.data ]
+            return [ ...response.data ]
           }
         })
         .catch((error) => {
