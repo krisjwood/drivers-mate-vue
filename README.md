@@ -1,11 +1,20 @@
-# nl-drivers-mate-vue
+# Driver's Mate :truck: :articulated_lorry: :pickup_truck: :package:
+## A mobile and tablet web app for drivers to manage their trips.
+![Driver's Mate](src/assets/drivers-mate-nl-logo.png)
+
+View the project on [Netlify](https://main--resonant-snickerdoodle-275007.netlify.app/)
+
+Or follow instructions to run in a dev or production environment:
 
 ## Project setup
+
+Clone the repo and install dependencies
+
 ```
-npm install
+https://github.com/krisjwood/drivers-mate-vue.git && npm i
 ```
 
-### Compiles and hot-reloads for development
+### Run locally - compiles and hot-reloads for development
 ```
 npm run serve
 ```
@@ -14,16 +23,13 @@ npm run serve
 ```
 npm run build
 ```
-
-### Run your unit tests
+Choose your preferred hosting provider e.g. [AWS Amplify](https://aws.amazon.com/amplify/), [Heroku](https://www.heroku.com/)
+### Run unit tests
 ```
-npm run test:unit
+npm run test
 ```
 
 ### Lints and fixes files
 ```
 npm run lint
 ```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
