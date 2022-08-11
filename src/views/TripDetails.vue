@@ -65,11 +65,15 @@
       if (this.$route.params.id) {
         this.getTripById(this.$route.params.id)
       } else if (sessionStorage.getItem('tripDetails')) {
-        const sessiontripDetails  = this.getSessionData('tripDetails')
-        this.getTripById(sessiontripDetails.TripId)
+          const sessiontripDetails  = this.getSessionData('tripDetails')
+          this.getTripById(sessiontripDetails.TripId)
       }
     },
     methods: {
+      /** Fetches trip by ID from backend and stores value in sessionStorage
+       * @param {String} tripId 
+       * @returns {Object} response from endpoint
+       */
       async getTripById(tripId) {
         this.display.errorMessage.loadingTripData = '';
         

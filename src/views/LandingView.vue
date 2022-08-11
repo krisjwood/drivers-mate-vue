@@ -60,6 +60,9 @@ export default {
     this.getDrivers()
   },
   methods: {
+    /** Fetches all drivers from backend
+     * @returns {Array} of drivers with properties for select input
+     */
     async getDrivers() {
       this.display.errorMessage.loadingDriverData = '';
 
@@ -75,7 +78,7 @@ export default {
           drivers.unshift(
             {
               text: 'All',
-              value: null
+              value: 'All'
             }
           )
 
@@ -89,6 +92,8 @@ export default {
           this.is.loadingDriverData = false;
         })
     },
+    /** Takes user to trips list based on driver selected & sets value in sessionStorage
+     */
     goToTripsList() {
       this.$router.push({name: 'trips-list', params: {
         id: this.selected.driver
@@ -99,18 +104,3 @@ export default {
   },
 }
 </script>
-<style scoped>
-  .landing-fade-in {
-    animation: fadeInAnimation ease-in 2s;
-  }
-
-  @keyframes fadeInAnimation {
-    0% {
-      opacity: 0;
-    }
-    100% {
-      opacity: 1;
-    }
-  }
-  
-</style>

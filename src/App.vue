@@ -51,6 +51,7 @@ export default {
     window.addEventListener('scroll', this.handleScroll);
   },
   methods: {
+    /** Displays warning if no mobile or tablet device detected */
     checkIfDesktop() {
       if (!/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
         this.show = true;

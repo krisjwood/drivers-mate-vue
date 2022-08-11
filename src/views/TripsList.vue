@@ -65,15 +65,19 @@ export default {
     this.getTrips(this.$route.params.id) 
   },
   methods: {
+    /** Fetches trips list from backend, optionally filter by ID
+     * @param {String} OrderId
+     * @returns {Object} response from endpoint
+     */
     async getTrips(driverId) {
       this.display.errorMessage.loadingTripData = '';
 
       this.display.tripList = await TripsData.getTrips()
         .then((response) => {
-          if (driverId) {
-            return response.data.filter((trip) => trip.DriverId === driverId)
-          } else {
+          if (driverId === 'All' ) {
             return [ ...response.data ]
+          } else {
+            return response.data.filter((trip) => trip.DriverId === driverId)
           }
         })
         .catch((error) => {
@@ -84,6 +88,9 @@ export default {
           this.is.loadingTripData = false;
         })
     },
+    /** Sorts list of trips by ID or status
+     * @param {String} label ID or status 
+     */
     sortListByStatus(label) {
       if (label === 'Status') {
         this.display.tripList.sort((a, b) => a.Status < b.Status ? -1 : 1)
@@ -93,10 +100,6 @@ export default {
         this.display.sortLabel = 'Status'
       }
     },
-    filterByProperty(prop) {
-      this.display.tripList = this.display.tripList.filter(trip => trip[prop] === prop)
-
-    }
   },
 }
 </script>

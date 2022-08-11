@@ -130,11 +130,15 @@
       if (this.$route.params.id) {
         this.getConsignmentById(this.$route.params.id)
       } else if (sessionStorage.getItem('consignmentDetails')) {
-          const sessionConsignmentDetails  = this.getSessionData('consignmentDetails')
-          this.getConsignmentById(sessionConsignmentDetails.OrderId)
+        const sessionConsignmentDetails  = this.getSessionData('consignmentDetails')
+        this.getConsignmentById(sessionConsignmentDetails.OrderId)
       }
     },
     methods: {
+      /** Fetches consignment by ID from backend and stores value in sessionStorage
+       * @param {String} OrderId
+       * @returns {Object} response from endpoint
+       */
       async getConsignmentById(OrderId) {
         this.display.consignmentDetails = await ConsignmentsData.getConsignment(OrderId)
         .then((response) => {
@@ -149,15 +153,25 @@
           this.is.loadingOrderData = false;
         })
       },
+      /** Converts address object to string
+       * @param {Object} address 
+       * @returns {String} address lines seperated by commas
+       */
       formatAddress(address) {
         if (address) {
           return Object.values(address).join(', ')
         }
       },
+      /** Copied address text to clipboard
+       * @param {String} value address
+       */
       copyToClipboard(value) {
         this.copiedToast('b-toaster-bottom-center')
         navigator.clipboard.writeText(value)
       },
+      /** Toast popup notifying user that text has been copied to clipboard
+       * @param {String} toaster of toast position
+       */
       copiedToast(toaster) {
         this.$bvToast.toast(`Copied!`, {
           title: '',
