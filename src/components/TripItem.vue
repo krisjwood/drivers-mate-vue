@@ -33,6 +33,9 @@ export default {
     }
   },
   methods: {
+    /** Takes user to trip details page
+     * @param {String} tripId ID
+     */
     goToTrip(tripId) {
       this.$router.push({name: 'trip-details', params: {
         id: tripId

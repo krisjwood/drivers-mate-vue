@@ -17,7 +17,7 @@
       </b-card-text>
     </div>
       <div class="mt-3">
-        <b-button squared @click="goToTrip(consignment.OrderId)">Instructions</b-button>
+        <b-button squared @click="goToConsignment(consignment.OrderId)">Instructions</b-button>
       </div>
     <template #footer>
       <div class="row d-flex justify-content-between mx-1">
@@ -47,11 +47,18 @@ export default {
     }
   },
   methods: {
-    goToTrip(OrderId) {
+    /** Takes user to the consignment page
+     * @param {String} OrderId ID
+     */
+    goToConsignment(OrderId) {
       this.$router.push({name: 'trip-consignment', params: {
         id: OrderId
       }})
     },
+    /** Creates a shorter version of the address
+     * @param {Object} address 
+     * @returns {String} short address
+     */
     formatShortAddress(address) {
         let addressArray = Object.values(address)
         return `...${addressArray[addressArray.length - 2]}, ${addressArray[addressArray.length - 1]}`

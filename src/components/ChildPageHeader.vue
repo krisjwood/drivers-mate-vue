@@ -42,6 +42,7 @@
       }
     },
     methods: {
+      /** Opens user management modal */
       userManagement() {
         this.$bvModal.msgBoxOk("Sorry, user management hasn't been released yet. Check back soon!", {
           title: '6 notifications',
