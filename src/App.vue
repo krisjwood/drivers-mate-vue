@@ -4,11 +4,11 @@
       <b-overlay show rounded="sm">
         <template #overlay>
           <div class="text-center">
-            <div class="row justify-content-center">
-                <i class="fa-solid fa-triangle-exclamation fa-fade"></i>
-              <h2>This application is intended for mobile and tablet use.</h2>
-              <h3>Viewing on a desktop may be difficult to navigate or result in unexpected behaviour.</h3>
+            <div class="row d-flex justify-content-center">
+              <i class="fa-solid fa-triangle-exclamation fa-fade"></i>
             </div>
+            <h2>This application is intended for mobile and tablet use.</h2>
+            <h3>Viewing on a desktop may be difficult to navigate or result in unexpected behaviour.</h3>
             <div>
               <b-button
                 class="mt-5"
