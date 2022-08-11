@@ -11,7 +11,7 @@ Or follow instructions to run in a dev or production environment:
 Clone the repo and install dependencies
 
 ```
-https://github.com/krisjwood/drivers-mate-vue.git && npm i
+https://github.com/krisjwood/drivers-mate-vue.git && cd drivers-mate-vue && npm i
 ```
 
 ### Run locally - compiles and hot-reloads for development
